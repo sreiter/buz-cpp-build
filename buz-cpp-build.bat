@@ -5,6 +5,10 @@ set CONAN_LOG_RUN_TO_FILE=C:\build\conan_run.log
 set CONAN_PRINT_RUN_COMMANDS=C:\build\conan_run_cmds.log
 
 set vcVarsScript="C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars64.bat"
+if not exist %vcVarsScript% (
+  set vcVarsScript="C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+)
+
 set curFolder=%CD%
 
 set invalidParameters=0
@@ -24,6 +28,10 @@ set srcFolder=%2
 set buildRootFolder=%3
 
 for %%f in (%srcFolder%) do set projectName=%%~nxf
+
+if not exist %buildRootFolder% (
+  mkdir %buildRootFolder%
+)
 cd %buildRootFolder%
 
 set build=0
