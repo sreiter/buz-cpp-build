@@ -1,8 +1,10 @@
 @echo off
 
-set CONAN_TRACE_FILE=C:\build\conan_trace.log
-set CONAN_LOG_RUN_TO_FILE=C:\build\conan_run.log
-set CONAN_PRINT_RUN_COMMANDS=C:\build\conan_run_cmds.log
+set "PATH=%PATH%;%~dp0"
+
+rem set CONAN_TRACE_FILE=C:\build\conan_trace.log
+rem set CONAN_LOG_RUN_TO_FILE=C:\build\conan_run.log
+rem set CONAN_PRINT_RUN_COMMANDS=C:\build\conan_run_cmds.log
 
 set vcVarsScript="C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars64.bat"
 if not exist %vcVarsScript% (
@@ -96,7 +98,7 @@ if not exist %configFile% (
 
   echo[>> %configFile%
   echo rem Command line arguments passed to the specified executable upon execution.>> %configFile%
-  echo set arguments="">> %configFile%
+  echo set arguments=>> %configFile%
 
   echo[>> %configFile%
   echo rem The path at which the root CMakeLists.txt is located. Relative to the source path.>> %configFile%
