@@ -1,0 +1,18 @@
+{
+  "selector": "source.c++, source.cpp, source.c",
+  "file_regex": "^\\s*(.*)\\(([0-9]+)\\)\\s*: ()(.*)$",
+  "working_dir": "$folder",
+
+  "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-single-file.bat\" buildAndRun \"$file\"",
+  
+  "variants": [
+    {
+      "name": "Build And Run",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-single-file.bat\" buildAndRun \"$file\"",
+    },
+    {
+      "name": "Build",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-single-file.bat\" build \"$file\"",
+    },
+  ]
+}
