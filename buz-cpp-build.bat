@@ -131,7 +131,7 @@ if "%customCMakeListsLocation%" == "" (
   set cmakeListsFolder=%srcFolder%
   set buildFolder=%projectName%-%buildType%
 ) else (
-  set cmakeListsFolder=%customCMakeListsLocation%
+  set cmakeListsFolder=%srcFolder%/%customCMakeListsLocation%
   for %%f in (%cmakeListsFolder%) do set productName=%%~nxf
   set buildFolder=%projectName%-%productName%-%buildType%
 )
