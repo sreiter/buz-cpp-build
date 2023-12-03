@@ -1,6 +1,6 @@
 # buz-cpp-build
 
-Easy cmake and ninja based c++ builds on windows.
+Easy cmake and ninja based c++ builds for SublimeText on windows.
 
 Clone this repository into your SublimeText Packages folder.
 
