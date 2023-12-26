@@ -1,0 +1,39 @@
+{
+  "selector": "source.c++, source.cpp, source.c",
+  "file_regex": "^\\s*(.*)\\(([0-9]+)\\)\\s*: ()(.*)$",
+  "working_dir": "$folder",
+
+  "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" edit Debug $folder C:\\build",
+  
+  "variants": [
+    {
+      "name": "Build",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" build Debug $folder C:\\build",
+    },
+    {
+      "name": "Build And Run",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" buildAndRun Debug $folder C:\\build",
+    },
+    {
+      "name": "Build And Run In Visual Studio",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" buildAndRunVS Debug $folder C:\\build",
+    },
+
+    {
+      "name": "Edit Build Settings",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" edit Debug $folder C:\\build",
+    },
+    {
+      "name": "Run CMake",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" runcmake Debug $folder C:\\build"
+    },
+    {
+      "name": "Open CMakeCache.txt",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" cmakecache Debug $folder C:\\build"
+    },
+    {
+      "name": "Open build folder",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" buildfolder Debug $folder C:\\build"
+    }
+  ]
+}
