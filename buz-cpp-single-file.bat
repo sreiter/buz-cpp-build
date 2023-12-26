@@ -37,9 +37,11 @@ if "%action%" == "run" (
 call %vcVarsScript%
 
 if %build% == 1 (
-  cl.exe "%filename%" /std:c++17 /W4 /WX /EHsc /Fe: buz-out.exe
-  if %ERRORLEVEL% neq 0 goto exitWithError
+  cl.exe "%filename%" /std:c++20 /W4 /WX /EHsc /Fe: buz-out.exe
 )
+
+set buildError=%ERRORLEVEL%
+if %buildError% neq 0 goto exitWithError
 
 if %run% == 1 (
   buz-out.exe

@@ -13,17 +13,20 @@ set invalidParameters=0
 if "%1" == "" set invalidParameters=1
 if "%2" == "" set invalidParameters=1
 if "%3" == "" set invalidParameters=1
+if "%4" == "" set invalidParameters=1
 if %invalidParameters% == 1 (
   echo   "Invalid parameters."
   echo   "1: Please specify the action you want to perform: edit, build, run, buildAndRun, cmakecache, buildfolder."
-  echo   "2: The root folder of the sources that shall be built."
-  echo   "3: Please specify the build path."
+  echo   "2: The build type: Release or Debug."
+  echo   "3: The root folder of the sources that shall be built."
+  echo   "4: Please specify the build path."
   exit /b 1
 )
 
 set action=%1
-set srcFolder=%2
-set buildRootFolder=%3
+set buildType=%2
+set srcFolder=%3
+set buildRootFolder=%4
 
 for %%f in (%srcFolder%) do set projectName=%%~nxf
 
@@ -35,6 +38,7 @@ cd %buildRootFolder%
 set build=0
 set edit=0
 set run=0
+set runInVisualStudio=0
 set runCMake=0
 set openCmakeCache=0
 set openBuildFolder=0
@@ -52,14 +56,20 @@ if "%action%" == "edit" (
         set build=1
         set run=1
       ) else (
-        if "%action%" == "runcmake" (
-            set runCMake=1
-        )  else (
-          if "%action%" == "cmakecache" (
-            set openCmakeCache=1
-          ) else (
-            if "%action%" == "buildfolder" (
-              set openBuildFolder=1
+        if "%action%" == "buildAndRunVS" (
+          set build=1
+          set run=1
+          set runInVisualStudio=1
+        ) else (
+          if "%action%" == "runcmake" (
+              set runCMake=1
+          )  else (
+            if "%action%" == "cmakecache" (
+              set openCmakeCache=1
+            ) else (
+              if "%action%" == "buildfolder" (
+                set openBuildFolder=1
+              )
             )
           )
         )
@@ -75,18 +85,7 @@ if not exist %configFile% (
     copy .buildconfig.bat %configFile%
   ) else (
     echo "Initializing build configuration from scatch (no default `.buildconfig.bat` found)"
-    echo rem Run the executable from the command line [0] or from VisualStudio [1].>> %configFile%
-    echo set runInVisualStudio=0 >> %configFile%
 
-    echo[>> %configFile%
-    echo rem When the executable terminates in VisualStudio, do not close VisualStudio [0] or close it [1].>> %configFile%
-    echo set autoExitVisualStudio=1 >> %configFile%
-
-    echo[>> %configFile%
-    echo rem Choose the cmake build type, e.g. Debug or Release.>> %configFile%
-    echo set buildType=Release>> %configFile%
-
-    echo[>> %configFile%
     echo rem Choose an executable which will be run for `build` and `buildAndRun` modes>> %configFile%
     echo set executable=>> %configFile%
 
@@ -116,12 +115,9 @@ if %edit% == 1 (
 )
 
 rem Initialize config variables with default values. Actual values are set through `call %configFile%`.
-set buildType=""
 set executable=""
 set arguments=""
 set runInPath=""
-set runInVisualStudio=0
-set autoExitVisualStudio=1
 set customCMakeListsLocation=""
 set cmakeFlags=""
 
@@ -208,11 +204,7 @@ if %buildError% neq 0 goto exitWithError
 
 set launcher=
 if %runInVisualStudio% == 1 (
-  if %autoExitVisualStudio% == 1 (
-    set "launcher=devenv.exe /Runexit"
-  ) else (
-    set "launcher=devenv.exe /Run"
-  )
+  set "launcher=devenv.exe /Run"
 )
 
 if %run% == 1 (
