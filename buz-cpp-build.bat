@@ -9,6 +9,8 @@ if not exist %vcVarsScript% (
 
 set curFolder=%CD%
 
+set openInSublimeFileName=""
+
 set invalidParameters=0
 if "%1" == "" set invalidParameters=1
 if "%2" == "" set invalidParameters=1
@@ -110,8 +112,8 @@ if not exist %configFile% (
 
 if %edit% == 1 (
   echo "Edit build configuration"
-  subl.exe %configFile%
-  goto regularExit
+  set openInSublimeFileName=%configFile%
+  goto openInSublimeAndExit
 )
 
 rem Initialize config variables with default values. Actual values are set through `call %configFile%`.
@@ -139,8 +141,8 @@ cd %buildFolder%
 
 if %openCmakeCache% == 1 (
   echo "Open CMakeCache.txt"
-  subl.exe CMakeCache.txt
-  goto regularExit
+  set openInSublimeFileName="CMakeCache.txt"
+  goto openInSublimeAndExit
 )
 
 if %openBuildFolder% == 1 (
@@ -237,4 +239,14 @@ exit 0
 :exitWithError
 echo [FAILED: %buildFolder%]
 cd %curFolder%
+exit 1
+
+:openInSublimeAndExit
+subl.exe %openInSublimeFileName% >nul 2>nul
+if %ERRORLEVEL% == 0 exit 0
+"C:/Program Files/Sublime Text/sublime_text.exe" %openInSublimeFileName% >nul 2>nul
+if %ERRORLEVEL% == 0 exit 0
+echo "Could not find SublimeText. Tried"
+echo "  subl.exe"
+echo "  C:/Program Files/Sublime Text/sublime_text.exe"
 exit 1
