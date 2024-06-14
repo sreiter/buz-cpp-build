@@ -171,7 +171,7 @@ if %runCMake% == 1 (
 
 set ninjaStartTime=%TIME%
 if %build% == 1 (
-  ninja
+  ninja %executable%
 )
  
 set buildError=%ERRORLEVEL%
