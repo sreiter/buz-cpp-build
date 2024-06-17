@@ -117,11 +117,11 @@ if %edit% == 1 (
 )
 
 rem Initialize config variables with default values. Actual values are set through `call %configFile%`.
-set executable=""
-set arguments=""
-set runInPath=""
-set customCMakeListsLocation=""
-set cmakeFlags=""
+set executable=
+set arguments=
+set runInPath=
+set customCMakeListsLocation=
+set cmakeFlags=
 
 call %configFile%
 
