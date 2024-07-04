@@ -18,7 +18,7 @@ if "%3" == "" set invalidParameters=1
 if "%4" == "" set invalidParameters=1
 if %invalidParameters% == 1 (
   echo   "Invalid parameters."
-  echo   "1: Please specify the action you want to perform: edit, build, run, buildAndRun, cmakecache, buildfolder."
+  echo   "1: Please specify the action you want to perform: edit, build, run, buildAndRun, buildAndRunVS, listTargets, runcmake, cmakecache, buildfolder."
   echo   "2: The build type: Release or Debug."
   echo   "3: The root folder of the sources that shall be built."
   echo   "4: Please specify the build path."
@@ -42,6 +42,7 @@ set edit=0
 set run=0
 set runInVisualStudio=0
 set runCMake=0
+set listTargets=0
 set openCmakeCache=0
 set openBuildFolder=0
 
@@ -66,11 +67,15 @@ if "%action%" == "edit" (
           if "%action%" == "runcmake" (
               set runCMake=1
           )  else (
-            if "%action%" == "cmakecache" (
-              set openCmakeCache=1
-            ) else (
-              if "%action%" == "buildfolder" (
-                set openBuildFolder=1
+            if "%action%" == "listTargets" (
+                set listTargets=1
+            )  else (
+              if "%action%" == "cmakecache" (
+                set openCmakeCache=1
+              ) else (
+                if "%action%" == "buildfolder" (
+                  set openBuildFolder=1
+                )
               )
             )
           )
@@ -148,6 +153,12 @@ if %openCmakeCache% == 1 (
 if %openBuildFolder% == 1 (
   echo "Open build folder"
   explorer.exe .
+  goto regularExit
+)
+
+if %listTargets% == 1 (
+  echo "List targets"
+  cmake --build . --target help
   goto regularExit
 )
 

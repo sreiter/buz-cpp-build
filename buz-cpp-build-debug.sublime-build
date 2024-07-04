@@ -28,6 +28,10 @@
       "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" runcmake Debug $folder C:\\build"
     },
     {
+      "name": "List Targets",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" listTargets Debug $folder C:\\build"
+    },
+    {
       "name": "Open CMakeCache.txt",
       "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" cmakecache Debug $folder C:\\build"
     },
