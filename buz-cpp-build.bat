@@ -257,7 +257,10 @@ subl.exe %openInSublimeFileName% >nul 2>nul
 if %ERRORLEVEL% == 0 exit 0
 "C:/Program Files/Sublime Text/sublime_text.exe" %openInSublimeFileName% >nul 2>nul
 if %ERRORLEVEL% == 0 exit 0
+"C:/Program Files/Sublime Text 3/sublime_text.exe" %openInSublimeFileName% >nul 2>nul
+if %ERRORLEVEL% == 0 exit 0
 echo "Could not find SublimeText. Tried"
 echo "  subl.exe"
 echo "  C:/Program Files/Sublime Text/sublime_text.exe"
+echo "  C:/Program Files/Sublime Text 3/sublime_text.exe"
 exit 1
