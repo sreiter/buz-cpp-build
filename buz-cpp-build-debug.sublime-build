@@ -36,7 +36,7 @@
       "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" cmakecache Debug $folder C:\\build"
     },
     {
-      "name": "Open build folder",
+      "name": "Open Build Folder",
       "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" buildfolder Debug $folder C:\\build"
     }
   ]
