@@ -4,7 +4,7 @@ Highly automated `Sublime Text` build scripts for the `C++` programming language
 using `CMake`, `ninja`, and `Visual Studio`. Some convenience tooling for the `Sublime LSP plugin`
 is also provided.
 
-Please clone this repository into your *SublimeText Packages* folder to get started.
+Please clone this repository into your *SublimeText Packages* folder to get started (see `Preferences -> Browse Packages...`).
 
 # Requirements
 - `CMake`
