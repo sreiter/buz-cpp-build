@@ -1,9 +1,18 @@
 {
   "selector": "source.c++, source.cpp, source.c",
-  "file_regex": "^\\s*(.*)\\(([0-9]+)\\)\\s*: ()(.*)$",
   "working_dir": "$folder",
 
-  "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" edit Release $folder C:\\build",
+  "windows":
+  {
+    "file_regex": "^\\s*(.*)\\(([0-9]+)\\)\\s*: ()(.*)$",
+    "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.bat\" edit Release $folder C:\\build",
+  },
+
+  "linux":
+  {
+    "file_regex": "^\\s*(/.*):([0-9]+):([0-9]+)(.*)$",
+    "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" edit Release $folder ~/build",
+  },
   
   "variants": [
     {
