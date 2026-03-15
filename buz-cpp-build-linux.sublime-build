@@ -1,0 +1,34 @@
+{
+  "selector": "source.c++, source.cpp, source.c",
+  "working_dir": "$folder",
+
+  "file_regex": "^\\s*(/.*):([0-9]+):([0-9]+)(.*)$",
+  "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" edit $folder ~/build",
+
+  "variants": [
+    {
+      "name": "Build",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" build $folder ~/build",
+    },
+    {
+      "name": "Build And Run",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" buildAndRun $folder ~/build",
+    },
+    {
+      "name": "Edit Build Settings",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" edit $folder ~/build",
+    },
+    {
+      "name": "Run CMake",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" runcmake $folder ~/build"
+    },
+    {
+      "name": "List Targets",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" listTargets $folder ~/build"
+    },
+    {
+      "name": "Open CMakeCache.txt",
+      "shell_cmd": "\"$packages/buz-cpp-build/buz-cpp-build.sh\" cmakecache $folder ~/build"
+    }
+  ],
+}
