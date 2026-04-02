@@ -15,20 +15,19 @@ set invalidParameters=0
 if "%1" == "" set invalidParameters=1
 if "%2" == "" set invalidParameters=1
 if "%3" == "" set invalidParameters=1
-if "%4" == "" set invalidParameters=1
 if %invalidParameters% == 1 (
   echo   "Invalid parameters."
   echo   "1: Please specify the action you want to perform: edit, build, run, buildAndRun, buildAndRunVS, listTargets, runcmake, cmakecache, buildfolder."
-  echo   "2: The build type: Release or Debug."
-  echo   "3: The root folder of the sources that shall be built."
-  echo   "4: Please specify the build path."
+  echo   "2: The root folder of the sources that shall be built."
+  echo   "3: Please specify the build path."
   exit /b 1
 )
 
+echo running: buz-cpp-build.bat %1 %2 %3
+
 set action=%1
-set buildType=%2
-set srcFolder=%3
-set buildRootFolder=%4
+set srcFolder=%2
+set buildRootFolder=%3
 
 for %%f in (%srcFolder%) do set projectName=%%~nxf
 
@@ -92,6 +91,9 @@ if not exist %configFile% (
     copy .buildconfig.bat %configFile%
   ) else (
     echo "Initializing build configuration from scatch (no default `.buildconfig.bat` found)"
+
+    echo rem Specify the cmake build type, e.g., Debug, Release>> %configFile%
+    echo set buildType=Release>> %configFile%
 
     echo rem Choose an executable which will be run for `build` and `buildAndRun` modes>> %configFile%
     echo set executable=>> %configFile%
@@ -201,7 +203,6 @@ if %buildOrCMake% == 1 (
   if exist compile_commands.json (
     copy compile_commands.json compile_commands.json.tmp
     move /Y compile_commands.json compile_commands.json.bak
-    powershell -Command "(gc compile_commands.json.tmp) -replace 'C:\\\\bin\\\\clcache\\\\dist\\\\clcache\\\\clcache.exe', 'clang-cl.exe' | Out-File compile_commands.json.tmp"
     powershell -Command "(gc compile_commands.json.tmp) -replace ' /Yu"', ' /IGNORE"' | Out-File compile_commands.json.tmp"
     powershell -Command "(gc compile_commands.json.tmp) -replace ' /Fp"', ' /IGNORE"' | Out-File compile_commands.json.tmp"
     powershell -Command "(gc compile_commands.json.tmp) -replace ' /FI"', ' /IGNORE"' | Out-File compile_commands.json.tmp"
