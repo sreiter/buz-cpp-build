@@ -8,7 +8,6 @@ buildRootFolder=$3
 
 rootPath=$(pwd)
 projectName=$(basename $srcFolder)
-buildFolder="$projectName-build"
 configFile=".$projectName.buildconfig"
 cmakeFlags=""
 cmakeListsFolder=$srcFolder
@@ -104,17 +103,13 @@ echo "arguments: $arguments"
 echo "customCMakeListsLocation: $customCMakeListsLocation"
 echo "cmakeFlags: $cmakeFlags"
 
-echo $buildFolder
+buildFolder="$projectName-$buildType"
+echo "buildFolder: $buildFolder"
 
 if [ ! -d $buildFolder ]; then
   mkdir $buildFolder
 fi
 cd $buildFolder
-
-if [ ! -d $buildType ]; then
-  mkdir $buildType
-fi
-cd $buildType
 
 if [ "$runCMake" == 1 ] || [ ! -f ./CMakeCache.txt ]; then
   cmake -G"Ninja" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=$buildType $cmakeFlags $cmakeListsFolder
