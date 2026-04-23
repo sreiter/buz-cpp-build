@@ -34,7 +34,7 @@ for %%f in (%srcFolder%) do set projectName=%%~nxf
 if not exist %buildRootFolder% (
   mkdir %buildRootFolder%
 )
-cd %buildRootFolder%
+cd /d %buildRootFolder%
 
 set build=0
 set edit=0
@@ -144,7 +144,7 @@ if "%customCMakeListsLocation%" == "" (
 if not exist %buildFolder% (
   mkdir %buildFolder%
 )
-cd %buildFolder%
+cd /d %buildFolder%
 
 if %openCmakeCache% == 1 (
   echo "Open CMakeCache.txt"
@@ -231,7 +231,7 @@ if %run% == 1 (
         echo runInPath does not exist: %runInPath%
         goto exitWithError
       )
-      cd %runInPath%
+      cd /d %runInPath%
     )
     if not exist "%executable%" (
       echo executable does not exist: %executable%
@@ -245,12 +245,12 @@ if %run% == 1 (
 
 :regularExit
 echo [success: %buildFolder%]
-cd %curFolder%
+cd /d %curFolder%
 exit 0
 
 :exitWithError
 echo [FAILED: %buildFolder%]
-cd %curFolder%
+cd /d %curFolder%
 exit 1
 
 :openInSublimeAndExit
